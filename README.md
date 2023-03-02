@@ -42,12 +42,12 @@ module.exports = ({ env }) => ({
 	'website-builder': {
     enabled: true,
     config: {
-			// ...
-			vercel: {
-				app: "vercelAppName",
-				teamId: "vercelTeamId",
-				accessToken: "VercelAccessToken"
-			}
+     // ...
+     vercel: {
+      app: "vercelAppName",
+      teamId: "vercelTeamId",
+      accessToken: "VercelAccessToken"
+     }
     }
   },
   // ...
@@ -66,11 +66,11 @@ module.exports = ({ env }) => ({
       trigger: {
         type: 'manual',
       },
-			vercel: {
-				app: "vercelAppName",
-				teamId: "vercelTeamId",
-				accessToken: "VercelAccessToken"
-			}
+      vercel: {
+       app: "vercelAppName",
+       teamId: "vercelTeamId",
+       accessToken: "VercelAccessToken"
+      }
     }
   },
   // ...
@@ -90,11 +90,11 @@ module.exports = ({ env }) => ({
         type: 'cron',
         cron: '* * 1 * * *',
       },
-			vercel: {
-				app: "vercelAppName",
-				teamId: "vercelTeamId",
-				accessToken: "VercelAccessToken"
-			}
+      vercel: {
+       app: "vercelAppName",
+       teamId: "vercelTeamId",
+       accessToken: "VercelAccessToken"
+      }
     }
   },
   // ...
@@ -129,11 +129,11 @@ module.exports = ({ env }) => ({
           },
         ],
       },
-			vercel: {
-				app: "vercelAppName",
-				teamId: "vercelTeamId",
-				accessToken: "VercelAccessToken"
-			}
+      vercel: {
+       app: "vercelAppName",
+       teamId: "vercelTeamId",
+       accessToken: "VercelAccessToken"
+      }
     }
   },
   // ...
