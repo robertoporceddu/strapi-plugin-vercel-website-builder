@@ -34,6 +34,26 @@ The plugin configuration is stored in a config file located at `./config/plugins
 
 The plugin has different structures depending on the type of trigger for the build. Each of the following sample configurations is the minimum needed for their respective trigger type.
 
+### Add Vercel Configuration
+
+```javascript
+module.exports = ({ env }) => ({
+  // ...
+	'website-builder': {
+    enabled: true,
+    config: {
+			// ...
+			vercel: {
+				app: "vercelAppName",
+				teamId: "vercelTeamId",
+				accessToken: "VercelAccessToken"
+			}
+    }
+  },
+  // ...
+});
+```
+
 ### Manual Configuration
 
 ```javascript
@@ -46,6 +66,11 @@ module.exports = ({ env }) => ({
       trigger: {
         type: 'manual',
       },
+			vercel: {
+				app: "vercelAppName",
+				teamId: "vercelTeamId",
+				accessToken: "VercelAccessToken"
+			}
     }
   },
   // ...
@@ -65,6 +90,11 @@ module.exports = ({ env }) => ({
         type: 'cron',
         cron: '* * 1 * * *',
       },
+			vercel: {
+				app: "vercelAppName",
+				teamId: "vercelTeamId",
+				accessToken: "VercelAccessToken"
+			}
     }
   },
   // ...
@@ -99,6 +129,11 @@ module.exports = ({ env }) => ({
           },
         ],
       },
+			vercel: {
+				app: "vercelAppName",
+				teamId: "vercelTeamId",
+				accessToken: "VercelAccessToken"
+			}
     }
   },
   // ...
