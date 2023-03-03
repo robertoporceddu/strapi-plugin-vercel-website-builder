@@ -1,10 +1,7 @@
-# strapi-plugin-website-builder
+# strapi-plugin-vercel-website-builder
 
-A plugin for [Strapi](https://github.com/strapi/strapi) that provides the ability to trigger website builds manually, periodically or through model events.
-
-[![Downloads](https://img.shields.io/npm/dm/strapi-plugin-website-builder?style=for-the-badge)](https://img.shields.io/npm/dm/strapi-plugin-website-builder?style=for-the-badge)
-[![Install size](https://img.shields.io/npm/l/strapi-plugin-website-builder?style=for-the-badge)](https://img.shields.io/npm/l/strapi-plugin-website-builder?style=for-the-badge)
-[![Package version](https://img.shields.io/github/v/release/ComfortablyCoding/strapi-plugin-website-builder?style=for-the-badge)](https://img.shields.io/github/v/release/ComfortablyCoding/strapi-plugin-website-builder?style=for-the-badge)
+A plugin for [Strapi](https://github.com/strapi/strapi) that provides the ability to trigger Verel website builds manually, periodically or through model events and check Vercel status.
+This plugin is a fork from https://github.com/ComfortablyCoding/strapi-plugin-website-builder .
 
 ## Requirements
 
@@ -16,23 +13,31 @@ The installation requirements are the same as Strapi itself and can be found in 
 
 **NOTE**: While this plugin may work with the older Strapi versions, they are not supported, it is always recommended to use the latest version of Strapi.
 
-## Installation
-
-```sh
-npm install strapi-plugin-website-builder
-```
-
-**or**
-
-```sh
-yarn add strapi-plugin-website-builder
-```
-
 ## Configuration
 
 The plugin configuration is stored in a config file located at `./config/plugins.js`.
 
 The plugin has different structures depending on the type of trigger for the build. Each of the following sample configurations is the minimum needed for their respective trigger type.
+
+### Add Vercel Configuration
+
+```javascript
+module.exports = ({ env }) => ({
+  // ...
+  'website-builder': {
+    enabled: true,
+    config: {
+     // ...
+     vercel: {
+      app: "vercelAppName",
+      teamId: "vercelTeamId",
+      accessToken: "VercelAccessToken"
+     }
+    }
+  },
+  // ...
+});
+```
 
 ### Manual Configuration
 
@@ -46,6 +51,11 @@ module.exports = ({ env }) => ({
       trigger: {
         type: 'manual',
       },
+      vercel: {
+       app: "vercelAppName",
+       teamId: "vercelTeamId",
+       accessToken: "VercelAccessToken"
+      }
     }
   },
   // ...
@@ -65,6 +75,11 @@ module.exports = ({ env }) => ({
         type: 'cron',
         cron: '* * 1 * * *',
       },
+      vercel: {
+       app: "vercelAppName",
+       teamId: "vercelTeamId",
+       accessToken: "VercelAccessToken"
+      }
     }
   },
   // ...
@@ -99,6 +114,11 @@ module.exports = ({ env }) => ({
           },
         ],
       },
+      vercel: {
+       app: "vercelAppName",
+       teamId: "vercelTeamId",
+       accessToken: "VercelAccessToken"
+      }
     }
   },
   // ...
@@ -122,14 +142,19 @@ module.exports = ({ env }) => ({
 | trigger.events.params | The model specific params to add on event trigger. | Object `or` Function | No |
 | trigger.events.model | The model to listen for events on. | String | Yes |
 | trigger.events.types | The model events to trigger on. The current supported events are `create`, `update`, `delete`, `publish` and `unpublish`. Publish/Unpublish is only supported for non media models. | Array | Yes |
+| vercel.app | The Vercel App name. | String | Yes |
+| vercel.teamId | The Vercel Team Id, get it from https://vercel.com/teams/<team_name>/settings | String | Yes |
+| vercel.accessToken | The Vercel API Access Token, create it from https://vercel.com/account/tokens | String | Yes |
 
 ## Usage
 
-Once the plugin has been installed and configured, it will show in the sidebar as `Website Builder`.
-To trigger a manual build select the `Website Builder` menu item in the sidebar and click
+Once the plugin has been installed and configured, it will show in the sidebar as `Vercel Website Builder`.
+To trigger a manual build select the `Vercel Website Builder` menu item in the sidebar and click
 the `Trigger Build` button to start a build process.
 
 If the plugin does not show in the sidebar in the admin after the plugin is enabled then a clean rebuild of the admin is required. This can be done by deleting the generated .cache and build folders and then re-running the develop command.
+
+Strapi automatically check if any triggered build was issued and checks build status every minute. It's also available a `Force Check Vercel Status` button to force refresh.
 ## Bugs
 
-If any bugs are found please report them as a [Github Issue](https://github.com/ComfortablyCoding/strapi-plugin-website-builder/issues)
+If any bugs are found please report them as a [Github Issue](https://github.com/robertoporceddu/strapi-plugin-vercel-website-builder/issues)

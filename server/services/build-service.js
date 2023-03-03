@@ -73,6 +73,7 @@ module.exports = ({ strapi }) => ({
 			getPluginService(strapi, 'logService').create({
 				trigger: trigger.type,
 				status,
+				vercelStatus: 'WAITING',
 				timestamp: Date.now(),
 			});
 		}
