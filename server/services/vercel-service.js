@@ -62,6 +62,7 @@ module.exports = ({ strapi }) => ({
 
 		if(since) {
 			params.since = since;
+			params.until = since+60000;
 		}
 
 		const deployments = await axios({
@@ -128,6 +129,8 @@ module.exports = ({ strapi }) => ({
 		try {
 			await this.updateLogs(settings);
 			await this.checkEmptyLogs(settings);
+
+			strapi.log.info('[vercel website builder] check vercel states done');
 		} catch (error) {
 			console.log(error);
 		}

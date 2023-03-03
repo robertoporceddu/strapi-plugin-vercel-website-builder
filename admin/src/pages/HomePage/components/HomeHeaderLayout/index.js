@@ -17,13 +17,8 @@ export const HomeHeaderLayout = () => {
 					Trigger Build
 				</Button>
 			}
-			secondaryAction={
-				<Button onClick={handleVercelCheckStates} variant="secondary" startIcon={<Refresh />} size="L">
-					Update Vercel States
-				</Button>
-			}
-			title="Website Builder"
-			subtitle="The right way to build websites."
+			title="Vercel Website Builder"
+			subtitle="The right way to build Vercel websites."
 		/>
 	);
 };

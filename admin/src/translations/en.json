@@ -10,5 +10,5 @@
 	"build.notification.trigger.success": "Build has been triggered successfully",
 	"build-logs.notification.delete.success": "Build log deleted successfully",
 	"vercel.notification.update.success": "Vercel states updates successfully",
-	"plugin.name": "Website Builder"
+	"plugin.name": "Vercel Website Builder"
 }

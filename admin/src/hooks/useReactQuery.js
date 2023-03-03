@@ -5,7 +5,6 @@ import { getTrad } from '../utils/getTrad';
 
 const { triggerBuild } = build;
 const { fetchBuildLogs, createBuildLog, deleteBuildLog } = buildLogs;
-const { checkStates } = vercel;
 
 const getQuerykey = ({ base }) => {
 	return [base];
@@ -93,25 +92,7 @@ const useReactQuery = () => {
 		}),
 	};
 
-	const vercelCheckStates = {
-		create: useMutation(checkStates, {
-			onSuccess: () => {
-				const querykey = getQuerykey({
-					base: 'get-build-logs',
-				});
-				handleSuccess({
-					invalidate: querykey,
-					notification: {
-						type: 'success',
-						tradId: `vercel.notification.update.success`,
-					},
-				});
-			},
-			onError: (error) => handleError(error),
-		})
-	}
-
-	return { buildLogQueries, buildLogMutations, buildMutations, vercelCheckStates };
+	return { buildLogQueries, buildLogMutations, buildMutations };
 };
 
 export { useReactQuery };

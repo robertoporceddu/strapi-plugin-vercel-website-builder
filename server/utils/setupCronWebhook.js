@@ -13,8 +13,12 @@ const setupCronWebhook = (strapi, settings) => {
 };
 
 const setupCronVercelStates = (strapi, settings) => {
+	if(settings.vercel.cron === 'undefined') {
+		settings.vercel.cron = '*/1 * * * *';
+	}
+
 	strapi.cron.add({
-		['*/1 * * * *']: ({ strapi }) => {
+		[settings.vercel.cron]: ({ strapi }) => {
 			getPluginService(strapi, 'vercelService').checkStates({ settings });
 		},
 	});

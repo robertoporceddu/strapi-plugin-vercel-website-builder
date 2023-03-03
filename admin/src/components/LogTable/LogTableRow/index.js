@@ -46,7 +46,7 @@ const LogTableRow = ({ log }) => {
 			</Td>
 			<Td>
 				<Typography textColor={isSuccessFullBuild ? 'success500' : 'danger500'}>
-					{status}
+					{isSuccessFullBuild ? 'TRIGGERED' : 'ERROR'}
 				</Typography>
 			</Td>
 			<Td>
