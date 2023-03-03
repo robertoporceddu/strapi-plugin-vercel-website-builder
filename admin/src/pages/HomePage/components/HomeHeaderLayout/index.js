@@ -6,13 +6,18 @@ import { Button } from '@strapi/design-system/Button';
 import { useReactQuery } from '../../../../hooks/useReactQuery';
 
 export const HomeHeaderLayout = () => {
-	const { buildMutations, vercelCheckStates } = useReactQuery();
+	const { buildMutations, checkVercelStates } = useReactQuery();
 
 	const handleTriggerBuild = async () => buildMutations.create.mutate();
-	const handleVercelCheckStates = async () => vercelCheckStates.create.mutate();
+	const handleCheckVercelStates = async () => checkVercelStates.create.mutate();
 	return (
 		<HeaderLayout
 			primaryAction={
+				<Button onClick={handleCheckVercelStates} variant="secondary" startIcon={<Refresh />} size="L">
+					Force Check Vercel States
+				</Button>
+			}
+			secondaryAction={
 				<Button onClick={handleTriggerBuild} variant="primary" startIcon={<Publish />} size="L">
 					Trigger Build
 				</Button>

@@ -43,7 +43,7 @@ module.exports = ({ strapi }) => ({
 						vercelStatus: {
 							$notIn: ['READY', 'CANCELED', 'ERROR'],
 						}
-					},
+					}
 				]
 			},
 			sort: {
@@ -78,33 +78,32 @@ module.exports = ({ strapi }) => ({
 		})
 	},
 
-	async getVercelDeploymentBuildStatus(settings, deploymentUid) {
+	async getVercelDeploymentStatus(settings, deploymentUid) {
 		let params = {
 				app: settings.vercel.app,
 				teamId: settings.vercel.teamId
 		};
 
-		const deployments = await axios({
+		const deployment = await axios({
 			method: 'GET',
-			url: `https://api.vercel.com/v11/deployments/${deploymentUid}/builds`,
+			url: `https://api.vercel.com/v11/deployments/${deploymentUid}`,
 			data: {},
 			headers: { Authorization: `Bearer ${settings.vercel.accessToken}` },
 			params
 		});
 
-		if(deployments.data.builds.length > 0)
-			return deployments.data.builds[0]
+		return deployment.data;
 	},
 
 	async updateLogs(settings) {
 		const logs = await this.getLogToUpdate(strapi);
 
 		await logs.forEach(async(log) =>  {
-			const vercelDeploymentBuildStatus = await this.getVercelDeploymentBuildStatus(settings, log.vercelDeploymentUid);
+			const vercelDeploymentStatus = await this.getVercelDeploymentStatus(settings, log.vercelDeploymentUid);
 
-			if(vercelDeploymentBuildStatus) {
+			if(vercelDeploymentStatus) {
 				getPluginService(strapi, 'logService').update(log.id, {
-					vercelStatus: vercelDeploymentBuildStatus.readyState,
+					vercelStatus: vercelDeploymentStatus.readyState,
 					vercelStatusUpdatedAt: (new Date()).toISOString(),
 				});
 			}
