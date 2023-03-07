@@ -62,7 +62,6 @@ module.exports = ({ strapi }) => ({
 
 		if(since) {
 			params.since = since;
-			params.until = since+60000;
 		}
 
 		const deployments = await axios({
