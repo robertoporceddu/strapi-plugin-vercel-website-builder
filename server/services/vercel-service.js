@@ -11,9 +11,19 @@ module.exports = ({ strapi }) => ({
 	async getFirstEmptyLog(strapi) {
 		const logs = await getPluginService(strapi, 'logService').find({
 			filters: {
-				vercelDeploymentUid: {
-					$null: true,
-				}
+				$and: [
+					{
+						vercelDeploymentUid: {
+							$null: true,
+						}
+					},
+					{
+						status: {
+							$between: [200, 299],
+						}
+					}
+				]
+
 			},
 			sort: {
 				createdAt: 'ASC'
@@ -42,6 +52,11 @@ module.exports = ({ strapi }) => ({
 					{
 						vercelStatus: {
 							$notIn: ['READY', 'CANCELED', 'ERROR'],
+						}
+					},
+					{
+						status: {
+							$between: [200, 299],
 						}
 					}
 				]

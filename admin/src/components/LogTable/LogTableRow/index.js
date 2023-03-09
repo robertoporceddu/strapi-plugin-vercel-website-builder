@@ -46,7 +46,7 @@ const LogTableRow = ({ log }) => {
 			</Td>
 			<Td>
 				<Typography textColor={isSuccessFullBuild ? 'success500' : 'danger500'}>
-					{isSuccessFullBuild ? 'TRIGGERED' : 'ERROR'}
+					{isSuccessFullBuild ? 'TRIGGERED' : 'ERROR'} ({status})
 				</Typography>
 			</Td>
 			<Td>
@@ -59,7 +59,7 @@ const LogTableRow = ({ log }) => {
 				<Typography textColor="neutral900">{vercelDeploymentUid}</Typography>
 			</Td>
 			<Td>
-				<Typography textColor={vercelStatusStyle(vercelStatus)}>{vercelStatus}</Typography>
+				<Typography textColor={vercelStatusStyle(vercelStatus)}>{isSuccessFullBuild ? vercelStatus : ''}</Typography>
 			</Td>
 			<Td>
 				<Typography textColor="neutral900">{vercelStatusUpdatedAt}</Typography>
