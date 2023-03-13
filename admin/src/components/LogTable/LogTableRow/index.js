@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Tr, Td } from '@strapi/design-system/Table';
-import { Typography } from '@strapi/design-system/Typography';
-import { IconButton } from '@strapi/design-system/IconButton';
-import Trash from '@strapi/icons/Trash';
+import { Typography, IconButton, Flex } from '@strapi/design-system';
+import { Trash, ExternalLink } from '@strapi/icons';
 import { useReactQuery } from '../../../hooks/useReactQuery';
 
 const LogTableRow = ({ log }) => {
-	const { id, status, trigger, vercelDeploymentUid, vercelStatus, vercelStatusUpdatedAt, createdAt } = log;
+	const { id, status, trigger, vercelDeploymentUid, vercelStatus, vercelStatusUpdatedAt, vercelUrl, vercelAlias, createdAt } = log;
 	const { buildLogMutations } = useReactQuery();
 
 	const handleBuildLogDelete = async (id) => {
@@ -17,6 +16,10 @@ const LogTableRow = ({ log }) => {
 			console.error(error);
 		}
 	};
+
+	const handleOpenExternalLink = (url) => {
+    window.open( 'https://' + url, '_blank' );
+  };
 
 	const isSuccessFullBuild = status >= 200 && 400 > status;
 
@@ -65,12 +68,30 @@ const LogTableRow = ({ log }) => {
 				<Typography textColor="neutral900">{vercelStatusUpdatedAt}</Typography>
 			</Td>
 			<Td>
-				<IconButton
-					onClick={() => handleBuildLogDelete(id)}
-					label="Delete"
-					noBorder
-					icon={<Trash />}
-				/>
+				<Flex>
+					<IconButton
+						onClick={() => handleBuildLogDelete(id)}
+						label="Delete"
+						noBorder
+						icon={<Trash />}
+					/>
+					{!!(vercelUrl) ? 
+						<IconButton
+							onClick={() => handleOpenExternalLink(vercelUrl)}
+							label="Go to Vercel Url"
+							noBorder
+							icon={<ExternalLink />}
+						/>
+					: ''}
+					{!!(vercelAlias) ? 
+						<IconButton
+							onClick={() => handleOpenExternalLink(vercelAlias)}
+							label="Go to Vercel Alias"
+							noBorder
+							icon={<ExternalLink />}
+						/>
+					: ''}
+				</Flex>
 			</Td>
 		</Tr>
 	);
@@ -83,6 +104,8 @@ LogTableRow.propTypes = {
 		trigger: PropTypes.string.isRequired,
 		vercelStatus: PropTypes.string,
 		vercelStatusUpdatedAt: PropTypes.string,
+		vercelUrl: PropTypes.string,
+		vercelAlias: PropTypes.string,
 		createdAt: PropTypes.string.isRequired,
 	}).isRequired,
 };

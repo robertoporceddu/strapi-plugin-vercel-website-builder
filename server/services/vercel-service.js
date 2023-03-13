@@ -119,6 +119,8 @@ module.exports = ({ strapi }) => ({
 				getPluginService(strapi, 'logService').update(log.id, {
 					vercelStatus: vercelDeploymentStatus.readyState,
 					vercelStatusUpdatedAt: (new Date()).toISOString(),
+					vercelUrl: vercelDeploymentStatus.url,
+					vercelAlias: (vercelDeploymentStatus.alias.length) ? vercelDeploymentStatus.alias.join(',') : null
 				});
 			}
 		});

@@ -37,6 +37,12 @@ module.exports = {
 		},
 		vercelStatusUpdatedAt: {
 			type: 'string',
+		},
+		vercelUrl: {
+			type: 'string',
+		},
+		vercelAlias: {
+			type: 'text',
 		}
 	},
 };
